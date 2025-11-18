@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You Babe 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            overflow-x: hidden;
+        }
+
+        .initial-screen {
+            background: #000;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            transition: opacity 1.5s ease, transform 1.5s ease;
+        }
+
+        .initial-screen.fade-out {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .flower {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            opacity: 0;
+            animation: bloom 3s ease-out forwards;
+        }
+
+        .petal {
+            position: absolute;
+            width: 80px;
+            height: 120px;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.6), rgba(255, 105, 180, 0.4));
+            border-radius: 50% 50% 50% 0;
+            transform-origin: bottom left;
+        }
+
+        .petal:nth-child(1) { transform: rotate(0deg) translate(0, 0); }
+        .petal:nth-child(2) { transform: rotate(72deg) translate(0, 0); }
+        .petal:nth-child(3) { transform: rotate(144deg) translate(0, 0); }
+        .petal:nth-child(4) { transform: rotate(216deg) translate(0, 0); }
+        .petal:nth-child(5) { transform: rotate(288deg) translate(0, 0); }
+
+        .flower-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #FFD700, #FFA500);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        @keyframes bloom {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+            }
+        }
+
+        .floating-text {
+            position: absolute;
+            font-size: 24px;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.3);
+            animation: float 8s infinite ease-in-out;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            25% { transform: translateY(-30px) translateX(20px); }
+            50% { transform: translateY(-15px) translateX(-20px); }
+            75% { transform: translateY(-40px) translateX(10px); }
+        }
+
+        .click-button {
+            background: linear-gradient(45deg, #ff1493, #ff69b4);
+            color: white;
+            border: none;
+            padding: 20px 50px;
+            font-size: 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 40px rgba(255, 20, 147, 0.4);
+            transition: all 0.3s ease;
+            z-index: 10;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .click-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 50px rgba(255, 20, 147, 0.6);
+        }
+
+        .main-screen {
+            display: none;
+            background: linear-gradient(135deg, #ff1493, #ff69b4, #ffc0cb);
+            min-height: 100vh;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInScreen 2s ease forwards;
+        }
+
+        @keyframes fadeInScreen {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .heart, .ring {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 30px;
+            animation: floatUp 6s infinite ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 40px;
+            max-width: 700px;
+            margin: 50px auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 5;
+            animation: fadeIn 1.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-box h2 {
+            color: #ff1493;
+            font-size: 32px;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .message-box p {
+            color: #333;
+            font-size: 18px;
+            line-height: 1.8;
+            text-align: justify;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .ring-emoji {
+            font-size: 60px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .love-emoji {
+            font-size: 80px;
+            text-align: center;
+            margin-bottom: 20px;
+            animation: rotate 3s infinite linear;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="initial-screen" id="initialScreen">
+        <div class="flower">
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="petal"></div>
+            <div class="flower-center"></div>
+        </div>
+        <button class="click-button" onclick="showSurprise()">Klik Disini 💕</button>
+    </div>
+
+    <div class="main-screen" id="mainScreen">
+        <div class="message-box">
+            <div class="love-emoji">💗</div>
+            <h2>Untuk Dinda Tersayang</h2>
+            <p>
+                Dinda, ini cincin kecil dari pisal. Pisal cuma mau dinda tau kalau hubungan kita ini beneran pisal jaga, dan pisal serius sama dinda. Maaf kalau cincin yang pisal kasih ini murah, tapi perasaan pisal ke dinda nggak pernah murah. Tolong jaga ya dinda… karena pisal juga bakal jaga hati dinda kuat-kuat. Dan cincin ini juga jadi janji kecil dari pisal, kalau nanti pisal bakal buktiin semuanya waktu pisal bisa ketemu dinda langsung.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const texts = [
+            "Dinda Azzahra Sambas",
+            "for u babe",
+            "love u so much",
+            "Dinda Azzahra Sambas",
+            "for u babe",
+            "love u so much"
+        ];
+
+        function createFloatingText() {
+            const container = document.getElementById('initialScreen');
+            texts.forEach((text, i) => {
+                const div = document.createElement('div');
+                div.className = 'floating-text';
+                div.textContent = text;
+                div.style.left = Math.random() * 80 + 10 + '%';
+                div.style.top = Math.random() * 80 + 10 + '%';
+                div.style.animationDelay = i * 0.5 + 's';
+                container.appendChild(div);
+            });
+        }
+
+        function createFloatingItems() {
+            const container = document.getElementById('mainScreen');
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                container.appendChild(heart);
+                
+                setTimeout(() => heart.remove(), 7000);
+            }, 400);
+
+            setInterval(() => {
+                const ring = document.createElement('div');
+                ring.className = 'ring';
+                ring.innerHTML = '💍';
+                ring.style.left = Math.random() * 100 + '%';
+                ring.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                ring.style.fontSize = (Math.random() * 20 + 20) + 'px';
+                container.appendChild(ring);
+                
+                setTimeout(() => ring.remove(), 7000);
+            }, 800);
+        }
+
+        function showSurprise() {
+            const initialScreen = document.getElementById('initialScreen');
+            const mainScreen = document.getElementById('mainScreen');
+            
+            initialScreen.classList.add('fade-out');
+            
+            setTimeout(() => {
+                initialScreen.style.display = 'none';
+                mainScreen.style.display = 'block';
+                createFloatingItems();
+            }, 1500);
+        }
+
+        createFloatingText();
+    </script>
+</body>
+</html>
